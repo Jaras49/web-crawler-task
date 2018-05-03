@@ -1,5 +1,6 @@
 package com.web.crawler.download;
 
+import com.web.crawler.download.modifier.Modifier;
 import com.web.crawler.download.namegenerator.Generator;
 import com.web.crawler.model.PageSnapshot;
 
@@ -13,6 +14,15 @@ import static java.nio.file.StandardOpenOption.CREATE;
 
 public class Downloader implements PageDownloader {
 
+    private static final String SLASH = "\\";
+
+    private Generator generator;
+    private Modifier modifier;
+
+    public Downloader(Generator generator, Modifier modifier) {
+        this.generator = generator;
+        this.modifier = modifier;
+    }
 
     @Override
     public void downloadPage(PageSnapshot pageSnapshot, File outputDirectory) {
@@ -24,9 +34,9 @@ public class Downloader implements PageDownloader {
 
     private void saveFile(PageSnapshot pageSnapshot, File outputDirectory) {
 
-        byte[] data = pageSnapshot.getPage().getBody().getBytes();
-        Path p = Paths.get(outputDirectory.getAbsolutePath() + "\\" + Generator.generateName(pageSnapshot));
-
+        byte[] data = modifier.ModifyLinks(pageSnapshot.getPage().getBody()).getBytes();
+        Path p = Paths.get(outputDirectory.getAbsolutePath() + SLASH + generator.generateName(pageSnapshot));
+//TODO refactor this try to try-with-resources
         OutputStream out = null;
         try {
             Files.createDirectories(p.getParent());

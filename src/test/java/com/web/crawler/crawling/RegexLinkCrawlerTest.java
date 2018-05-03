@@ -1,5 +1,6 @@
 package com.web.crawler.crawling;
 
+import com.web.crawler.model.Page;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -7,13 +8,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RegexCrawlerTest {
+public class RegexLinkCrawlerTest {
 
     @Test
     public void shouldExtractLinks() {
 
         //Given
-        RegexCrawler regexCrawler = new RegexCrawler();
+        RegexLinkCrawler regexLinkCrawler = new RegexLinkCrawler();
         String url = "http://example.com/";
         String websiteSource = "<!doctype html>\n" +
                 "<html>\n" +
@@ -67,10 +68,10 @@ public class RegexCrawlerTest {
                 "</html>\n";
 
         //When
-        List<String> result = regexCrawler.find(url, websiteSource);
+        List<String> result = regexLinkCrawler.find(new Page(url, websiteSource));
 
         //Then
-        Assert.assertEquals(Arrays.asList("http://www.iana.org/domains/example"), result);
+        Assert.assertEquals(Arrays.asList("https://www.iana.org"), result);
 
     }
 
@@ -78,23 +79,30 @@ public class RegexCrawlerTest {
     public void shouldBuildFullLinks() {
 
         //Given
-        RegexCrawler regexCrawler = new RegexCrawler();
+        RegexLinkCrawler regexLinkCrawler = new RegexLinkCrawler();
         String url = "http://example.com/domains/reserved";
         String givenBody = "<link rel=\"stylesheet\" media=\"screen\" href=\"/_css/2015.1/screen.css\"/>" +
                 "\n<script type=\"text/javascript\" src=\"/_js/2013.1/jquery.js\"></script>" +
                 "\n<div class=\"navigation\">\n" +
                 "\t\t\t\t<ul>\n" +
-                "\t\t\t\t\t<li><a href=\"/domains\">Domains</a></li>";
+                "\t\t\t\t\t<li><a href=\"/domains\">Domains</a></li>\n" +
+                " <li><a href=\"/time-zones\">Time Zone Database</a></li>\n" +
+                "<a href=\"about/\" class=\"avoid-break\">Learn more.</a></p>\n" +
+                "an affiliate of <a href=\"http://www.icann.org/\">ICANN</a>.</p>";
 
         List<String> expected = new ArrayList<>();
         expected.add("http://example.com/_css/2015.1/screen.css");
-        //expected.add("http://example.com/_js/2013.1/jquery.js");  TODO
+        expected.add("http://example.com/_js/2013.1/jquery.js");
         expected.add("http://example.com/domains");
+        expected.add("http://example.com/time-zones");
+        expected.add("http://example.com/about");
+        expected.add("https://www.icann.org");
 
 
         //When
-        List<String> result = regexCrawler.find(url, givenBody);
+        List<String> result = regexLinkCrawler.find(new Page(url, givenBody));
         System.out.println(result);
+
         //Then
         Assert.assertEquals(expected, result);
     }
