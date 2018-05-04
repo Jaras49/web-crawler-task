@@ -32,7 +32,7 @@ public class LinkModifierTestSuite {
                 "<li><a href=\"domains/root.html\">Root Zone Management</a></l";
 
         //When
-        String refactoredLinks = modifier.ModifyLinks(source);
+        String refactoredLinks = modifier.modifyLinks(source);
 
         //Then
         assertEquals(expected, refactoredLinks);
