@@ -34,7 +34,7 @@ public class Downloader implements PageDownloader {
 
     private void saveFile(PageSnapshot pageSnapshot, File outputDirectory) {
 
-        byte[] data = modifier.modifyLinks(pageSnapshot.getPage().getBody()).getBytes();
+        byte[] data = modifier.modifyLinks(pageSnapshot.getPage()).getBytes();
         Path p = Paths.get(outputDirectory.getAbsolutePath() + SLASH + generator.generateName(pageSnapshot));
 //TODO refactor this try to try-with-resources
         OutputStream out = null;
