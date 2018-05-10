@@ -4,8 +4,12 @@ import com.web.crawler.model.Page;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.IntStream;
 
+/**
+ * @deprecated
+ * This method is deprecated due to its refactor
+ */
+@Deprecated
 public class LinkModifier implements Modifier {
 //TODO need to test it and improve those REGEX`s in case they dont work in some conditions
     private static final String LINKS_TO_DELETE_SLASH = "((src|href)=\\\")/";
@@ -59,10 +63,5 @@ public class LinkModifier implements Modifier {
         }
 
         return result;
-    }
-
-    public static void main(String[] args) {
-        LinkModifier linkModifier = new LinkModifier();
-        System.out.println(linkModifier.evaluateDepth("https://www.iana.org/domains/root"));
     }
 }
