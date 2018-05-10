@@ -18,7 +18,7 @@ public class DownloadPageApplication {
 
     public static void main(String[] args) throws IOException {
 
-        PageDownloader pageDownloader = new Downloader(new NameGenerator(), new LinkModifier());
+        PageDownloader pageDownloader = new Downloader(new NameGenerator());
 
         //Path tempDirectory = createOutputDirectory();
         String path = "C:\\Users\\Jaras\\Desktop\\Temporary\\temp";

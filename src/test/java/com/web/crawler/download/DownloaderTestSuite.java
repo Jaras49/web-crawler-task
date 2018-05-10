@@ -22,7 +22,7 @@ public class DownloaderTestSuite {
 
     @Before
     public void setUp() throws Exception {
-        downloader = new Downloader(new NameGenerator(), new LinkModifier());
+        downloader = new Downloader(new NameGenerator());
     }
 
     @Test
