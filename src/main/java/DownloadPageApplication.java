@@ -1,6 +1,7 @@
 import com.web.crawler.PageSnapshotCreator;
 import com.web.crawler.crawling.Crawler;
 import com.web.crawler.crawling.RegexLinkCrawler;
+import com.web.crawler.crawling.builder.FullLinkBuilder;
 import com.web.crawler.download.Downloader;
 import com.web.crawler.download.PageDownloader;
 import com.web.crawler.download.modifier.LinkModifier;
@@ -24,7 +25,7 @@ public class DownloadPageApplication {
         File tempDirectory = new File(path);
 
         PageSnapshotCreator pageSnapshotCreator = new PageSnapshotCreator(
-                new Crawler(new RegexLinkCrawler(), new HttpPageExtractor()),
+                new Crawler(new RegexLinkCrawler(), new HttpPageExtractor(), new FullLinkBuilder()),
                 new HttpPageExtractor()
         );
 

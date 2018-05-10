@@ -1,5 +1,6 @@
 package com.web.crawler.crawling;
 
+import com.web.crawler.crawling.builder.FullLinkBuilder;
 import com.web.crawler.extract.PageExtractor;
 import com.web.crawler.model.Page;
 import org.junit.Before;
@@ -17,21 +18,27 @@ public class CrawlerTest {
 
     private RegexLinkCrawler regexLinkCrawler;
     private PageExtractor pageExtractor;
+    private FullLinkBuilder fullLinkBuilder;
     private Crawler crawler;
 
     @Before
     public void setUp() throws Exception {
+
         regexLinkCrawler = Mockito.mock(RegexLinkCrawler.class);
         pageExtractor = Mockito.mock(PageExtractor.class);
-        crawler = new Crawler(regexLinkCrawler, pageExtractor);
+        fullLinkBuilder = Mockito.mock(FullLinkBuilder.class);
+
+        crawler = new Crawler(regexLinkCrawler, pageExtractor, fullLinkBuilder);
     }
 
     @Test
     public void crawl() {
 
         //Given
-        Page page = new Page("", "");
+        Page page = new Page("expected adress", "expectedBody");
+
         when(regexLinkCrawler.find(page)).thenReturn(Arrays.asList("www.example.com"));
+        when(fullLinkBuilder.checkLinks(page.getAddress(), "www.example.com")).thenReturn("www.example.com");
         when(pageExtractor.extractPage("www.example.com")).thenReturn(new Page("expected adress", "expectedBody"));
 
         Collection<Page> expected = new ArrayList<>();
