@@ -1,6 +1,8 @@
 package com.web.crawler.download.modifier;
 
+import com.web.crawler.model.Page;
+
 public interface Modifier {
 
-    String ModifyLinks(String websiteSource);
+    String modifyLinks(Page page);
 }
