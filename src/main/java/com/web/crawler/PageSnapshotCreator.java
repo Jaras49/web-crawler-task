@@ -1,9 +1,12 @@
 package com.web.crawler;
 
 import com.web.crawler.crawling.WebCrawler;
+import com.web.crawler.replacer.Replacer;
+import com.web.crawler.replacer.ReplacerProcessor;
 import com.web.crawler.extract.PageExtractor;
 import com.web.crawler.model.Page;
 import com.web.crawler.model.PageSnapshot;
+import com.web.crawler.utils.LinkReplacement;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,6 +19,7 @@ public class PageSnapshotCreator {
     private final WebCrawler webCrawler;
     private final PageExtractor pageExtractor;
     private final Set<String> visitedPage;
+    private final Replacer replacer;
 
     public PageSnapshotCreator(
             WebCrawler webCrawler,
@@ -24,6 +28,7 @@ public class PageSnapshotCreator {
         this.webCrawler = webCrawler;
         this.pageExtractor = pageExtractor;
         this.visitedPage = new HashSet<>();
+        this.replacer = new ReplacerProcessor();
     }
 
     public PageSnapshot createPageNode(String url, int depth) {
@@ -31,11 +36,33 @@ public class PageSnapshotCreator {
     }
 
     private PageSnapshot getPage(Page page, int depth) {
+
         if (depth == 0) {
             return new PageSnapshot(page, emptyList());
         }
 
-        return new PageSnapshot(page, getLinks(page, depth));
+        Set<PageSnapshot> links = getLinks(page, depth);
+
+        Page pageWithLocalLinks = makeLinksLocal(page,
+                links.stream()
+                        .map(n -> n.getPage().getCrawledAddress()).collect(toSet()));
+
+        return new PageSnapshot(pageWithLocalLinks, links);
+    }
+
+    private Page makeLinksLocal(Page page, Set<String> links) {
+        String updatedBody = page.getBody();
+
+        //TODO need to localize links
+        Set<LinkReplacement> linkReplacements = links.stream()
+                .map(link -> new LinkReplacement(link, replacer.makeLocal(page, link)))
+                .collect(toSet());
+
+        for (LinkReplacement linkReplacement : linkReplacements) {
+            updatedBody = updatedBody.replace(linkReplacement.getOriginal(), linkReplacement.getReplacement());
+        }
+
+        return new Page(page.getAddress(),page.getCrawledAddress(), updatedBody);
     }
 
     private Set<PageSnapshot> getLinks(Page root, int depth) {
