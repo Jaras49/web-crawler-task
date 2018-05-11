@@ -11,8 +11,21 @@ import java.nio.file.Paths;
 
 public class HttpPageExtractor implements PageExtractor {
 //TODO check if this code can be refactored
+
+
     @Override
     public Page extractPage(String link) {
+
+        return new Page(link, extract(link));
+    }
+
+    @Override
+    public Page extractPage(String link, String crawledLink) {
+
+        return new Page(link, crawledLink, extract(link));
+    }
+
+    private String extract(String link) {
         URL url;
         InputStream is = null;
         BufferedReader br = null;
@@ -41,7 +54,7 @@ public class HttpPageExtractor implements PageExtractor {
                 // nothing to see here
             }
         }
-        return new Page(link, sb.toString());
+        return sb.toString();
     }
 //TODO this is proof of concept for downloading images
     public static void main(String[] args) throws IOException {
