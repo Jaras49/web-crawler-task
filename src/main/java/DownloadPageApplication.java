@@ -30,7 +30,7 @@ public class DownloadPageApplication {
         );
 
         pageDownloader.downloadPage(
-                pageSnapshotCreator.createPageNode(new UrlNormalizer().normalize("https://www.iana.org/"), 2),
+                pageSnapshotCreator.createPageNode(new UrlNormalizer().normalize("https://www.iana.org/"), 1),
                 tempDirectory);
     }
 

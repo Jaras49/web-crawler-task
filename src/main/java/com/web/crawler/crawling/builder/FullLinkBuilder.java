@@ -16,7 +16,7 @@ public class FullLinkBuilder {
         Matcher m = p.matcher(link);
         url = extractMainLink(url);
 
-        if (m.find()) {
+        if (m.matches()) {
             return new UrlNormalizer().normalize(link);
         }
 

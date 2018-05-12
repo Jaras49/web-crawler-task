@@ -32,6 +32,7 @@ public class PageSnapshotCreator {
     }
 
     public PageSnapshot createPageNode(String url, int depth) {
+        visitedPage.add(url);
         return getPage(pageExtractor.extractPage(url), depth);
     }
 
