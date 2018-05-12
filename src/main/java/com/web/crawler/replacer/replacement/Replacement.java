@@ -1,7 +1,9 @@
 package com.web.crawler.replacer.replacement;
 
+import com.web.crawler.model.CrawledLink;
+
 public interface Replacement {
 
-    String replace(String link);
+    String replace(CrawledLink crawledLink);
     boolean supports(String link);
 }

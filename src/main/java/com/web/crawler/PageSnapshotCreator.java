@@ -57,7 +57,7 @@ public class PageSnapshotCreator {
 
         //TODO need to localize links, split it to new class ?
         Set<LinkReplacement> linkReplacements = links.stream()
-                .map(link -> new LinkReplacement(link.getCrawledFullLink(), replacer.makeLocal(page, link.getCrawledLink())))
+                .map(link -> new LinkReplacement(link.getCrawledFullLink(), replacer.makeLocal(page, link)))
                 .collect(toSet());
 
         for (LinkReplacement linkReplacement : linkReplacements) {

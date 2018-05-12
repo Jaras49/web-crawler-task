@@ -20,7 +20,7 @@ public class Page {
     public Page(String address, String body) {
         this.address = address;
         this.body = body;
-        this.crawledLink = new CrawledLink(address, address);
+        this.crawledLink = new CrawledLink(address,"", address);
     }
 
     @Override

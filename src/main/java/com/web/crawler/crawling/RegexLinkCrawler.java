@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class RegexLinkCrawler {
     //TODO implement better regex`s
-    private static final String LINK_REGEX = "(href|src)=\\\"([\\w\\d-_:\\./]+)\\\"";
+    private static final String LINK_REGEX = "((href|src)=\\\")([\\w\\d-_:\\./]+)\\\"";
 
     public List<CrawledLink> find(Page page) {
 
@@ -21,7 +21,7 @@ public class RegexLinkCrawler {
         Matcher m = p.matcher(page.getBody());
 
         while (m.find()) {
-            crawledLinks.add(new CrawledLink(m.group(0), m.group(2)));
+            crawledLinks.add(new CrawledLink(m.group(0), m.group(1), m.group(3)));
         }
         return crawledLinks;
     }

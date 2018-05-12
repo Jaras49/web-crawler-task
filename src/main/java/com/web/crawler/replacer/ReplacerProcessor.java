@@ -1,5 +1,6 @@
 package com.web.crawler.replacer;
 
+import com.web.crawler.model.CrawledLink;
 import com.web.crawler.replacer.replacement.Replacement;
 import com.web.crawler.model.Page;
 import com.web.crawler.replacer.replacement.primitive.AddExtension;
@@ -18,13 +19,13 @@ public class ReplacerProcessor implements Replacer {
     }
 
     @Override
-    public String makeLocal(Page page, String link) {
+    public String makeLocal(Page page, CrawledLink crawledLink) {
 
-        Replacement replacement = getOperation(link);
+        Replacement replacement = getOperation(crawledLink.getCrawledLink());
         if (replacement != null) {
-            return replacement.replace(link);
+            return replacement.replace(crawledLink);
         }
-        return link;
+        return crawledLink.getCrawledFullLink();
     }
 
     private Replacement getOperation(String link) {
