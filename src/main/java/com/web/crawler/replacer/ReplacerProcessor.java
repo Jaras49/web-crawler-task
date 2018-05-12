@@ -23,7 +23,7 @@ public class ReplacerProcessor implements Replacer {
 
         Replacement replacement = getOperation(crawledLink.getCrawledLink());
         if (replacement != null) {
-            return replacement.replace(crawledLink);
+            return replacement.replace(page, crawledLink);
         }
         return crawledLink.getCrawledFullLink();
     }

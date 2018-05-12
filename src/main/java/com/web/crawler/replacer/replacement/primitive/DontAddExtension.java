@@ -1,6 +1,7 @@
 package com.web.crawler.replacer.replacement.primitive;
 
 import com.web.crawler.model.CrawledLink;
+import com.web.crawler.model.Page;
 import com.web.crawler.replacer.replacement.Replacement;
 
 import java.util.regex.Matcher;
@@ -11,14 +12,14 @@ public class DontAddExtension implements Replacement {
     private static final String DONT_ADD_EXTENSION_REGEX = "/?[\\w/\\.]*/(\\w+\\.\\w+)";
 
     @Override
-    public String replace(CrawledLink crawledLink) {
+    public String replace(Page page, CrawledLink crawledLink) {
 
         String link = crawledLink.getCrawledLink();
 
         if (link.startsWith("/")) {
             link = link.substring(1, link.length());
         }
-        return crawledLink.getHead() + evaluateDepth(link) + link + crawledLink.getTail();
+        return crawledLink.getHead() + evaluateDepth(page.getAddress()) + link + crawledLink.getTail();
     }
 
     @Override

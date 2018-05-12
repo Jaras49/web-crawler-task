@@ -1,5 +1,6 @@
 package com.web.crawler;
 
+import com.web.crawler.crawling.RegexLinkCrawler;
 import com.web.crawler.crawling.WebCrawler;
 import com.web.crawler.model.CrawledLink;
 import com.web.crawler.replacer.Replacer;
@@ -9,7 +10,9 @@ import com.web.crawler.model.Page;
 import com.web.crawler.model.PageSnapshot;
 import com.web.crawler.utils.LinkReplacement;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static java.util.Collections.emptyList;
@@ -21,7 +24,7 @@ public class PageSnapshotCreator {
     private final PageExtractor pageExtractor;
     private final Set<String> visitedPage;
     private final Replacer replacer;
-    private final Set<CrawledLink> allLinks;
+    private final List<CrawledLink> allLinks;
 
     public PageSnapshotCreator(
             WebCrawler webCrawler,
@@ -31,7 +34,7 @@ public class PageSnapshotCreator {
         this.pageExtractor = pageExtractor;
         this.visitedPage = new HashSet<>();
         this.replacer = new ReplacerProcessor();
-        this.allLinks = new HashSet<>();
+        this.allLinks = new ArrayList<>();
     }
 
     public PageSnapshot createPageNode(String url, int depth) {
@@ -40,7 +43,10 @@ public class PageSnapshotCreator {
     }
 
     private PageSnapshot getPage(Page page, int depth) {
-
+//TODO This is test POC, zapytać Kamila o najlepsze rozwiązanie
+        RegexLinkCrawler regexLinkCrawler = new RegexLinkCrawler();
+        List<CrawledLink> crawledLinks = regexLinkCrawler.find(page);
+        allLinks.addAll(crawledLinks);
         if (depth == 0) {
             return new PageSnapshot(makeLinksLocal(page, allLinks), emptyList());
         }
@@ -52,7 +58,7 @@ public class PageSnapshotCreator {
         return new PageSnapshot(pageWithLocalLinks, links);
     }
 
-    private Page makeLinksLocal(Page page, Set<CrawledLink> links) {
+    private Page makeLinksLocal(Page page, List<CrawledLink> links) {
         String updatedBody = page.getBody();
 
         //TODO need to localize links, split it to new class ?
@@ -70,7 +76,6 @@ public class PageSnapshotCreator {
     private Set<PageSnapshot> getLinks(Page root, int depth) {
         return webCrawler.crawl(root)
                 .stream()
-                .peek(p -> allLinks.add(p.getCrawledLink()))
                 .filter(p -> !visitedPage.contains(p.getAddress()))
                 .peek(p -> visitedPage.add(p.getAddress()))
                 .map(p -> getPage(p, depth - 1))
