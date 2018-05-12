@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DontAddExtension implements Replacement {
-
+//TODO check if this regex works in all cases
     private static final String DONT_ADD_EXTENSION_REGEX = "/?[\\w/\\.]*/(\\w+\\.\\w+)";
 
     @Override
@@ -15,7 +15,7 @@ public class DontAddExtension implements Replacement {
         if (link.startsWith("/")) {
             link = link.substring(1, link.length());
         }
-        return link;
+        return evaluateDepth(link) + link;
     }
 
     @Override

@@ -54,7 +54,7 @@ public class PageSnapshotCreator {
     private Page makeLinksLocal(Page page, Set<String> links) {
         String updatedBody = page.getBody();
 
-        //TODO need to localize links
+        //TODO need to localize links, split it to new class ?
         Set<LinkReplacement> linkReplacements = links.stream()
                 .map(link -> new LinkReplacement(link, replacer.makeLocal(page, link)))
                 .collect(toSet());
