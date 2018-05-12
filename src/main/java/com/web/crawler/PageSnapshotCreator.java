@@ -20,6 +20,7 @@ public class PageSnapshotCreator {
     private final PageExtractor pageExtractor;
     private final Set<String> visitedPage;
     private final Replacer replacer;
+    private final Set<String> allLinks;
 
     public PageSnapshotCreator(
             WebCrawler webCrawler,
@@ -29,6 +30,7 @@ public class PageSnapshotCreator {
         this.pageExtractor = pageExtractor;
         this.visitedPage = new HashSet<>();
         this.replacer = new ReplacerProcessor();
+        this.allLinks = new HashSet<>();
     }
 
     public PageSnapshot createPageNode(String url, int depth) {
@@ -39,14 +41,12 @@ public class PageSnapshotCreator {
     private PageSnapshot getPage(Page page, int depth) {
 
         if (depth == 0) {
-            return new PageSnapshot(page, emptyList());
+            return new PageSnapshot(makeLinksLocal(page, allLinks), emptyList());
         }
 
         Set<PageSnapshot> links = getLinks(page, depth);
 
-        Page pageWithLocalLinks = makeLinksLocal(page,
-                links.stream()
-                        .map(n -> n.getPage().getCrawledAddress()).collect(toSet()));
+        Page pageWithLocalLinks = makeLinksLocal(page, allLinks);
 
         return new PageSnapshot(pageWithLocalLinks, links);
     }
@@ -69,6 +69,7 @@ public class PageSnapshotCreator {
     private Set<PageSnapshot> getLinks(Page root, int depth) {
         return webCrawler.crawl(root)
                 .stream()
+                .peek(p -> allLinks.add(p.getCrawledAddress()))
                 .filter(p -> !visitedPage.contains(p.getAddress()))
                 .peek(p -> visitedPage.add(p.getAddress()))
                 .map(p -> getPage(p, depth - 1))
