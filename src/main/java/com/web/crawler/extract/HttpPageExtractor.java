@@ -1,5 +1,6 @@
 package com.web.crawler.extract;
 
+import com.web.crawler.model.CrawledLink;
 import com.web.crawler.model.Page;
 
 import java.io.*;
@@ -20,7 +21,7 @@ public class HttpPageExtractor implements PageExtractor {
     }
 
     @Override
-    public Page extractPage(String link, String crawledLink) {
+    public Page extractPage(String link, CrawledLink crawledLink) {
 
         return new Page(link, crawledLink, extract(link));
     }

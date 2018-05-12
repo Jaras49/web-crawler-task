@@ -8,19 +8,19 @@ import java.util.Objects;
 public class Page {
 
     private final String address;
-    private final String crawledAddress;
+    private final CrawledLink crawledLink;
     private final String body;
 
-    public Page(String address, String crawledAddress, String body) {
+    public Page(String address, CrawledLink crawledAddress, String body) {
         this.address = address;
-        this.crawledAddress = crawledAddress;
+        this.crawledLink = crawledAddress;
         this.body = body;
     }
 
     public Page(String address, String body) {
         this.address = address;
         this.body = body;
-        this.crawledAddress = address;
+        this.crawledLink = new CrawledLink(address, address);
     }
 
     @Override
@@ -36,12 +36,12 @@ public class Page {
         return address;
     }
 
-    public String getBody() {
-        return body;
+    public CrawledLink getCrawledLink() {
+        return crawledLink;
     }
 
-    public String getCrawledAddress() {
-        return crawledAddress;
+    public String getBody() {
+        return body;
     }
 
     @Override
@@ -50,13 +50,14 @@ public class Page {
         if (!(o instanceof Page)) return false;
         Page page = (Page) o;
         return Objects.equals(address, page.address) &&
-                Objects.equals(crawledAddress, page.crawledAddress) &&
+                Objects.equals(crawledLink, page.crawledLink) &&
                 Objects.equals(body, page.body);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(address, crawledAddress, body);
+        return Objects.hash(address, crawledLink, body);
     }
 }
+

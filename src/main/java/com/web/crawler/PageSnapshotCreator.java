@@ -1,6 +1,7 @@
 package com.web.crawler;
 
 import com.web.crawler.crawling.WebCrawler;
+import com.web.crawler.model.CrawledLink;
 import com.web.crawler.replacer.Replacer;
 import com.web.crawler.replacer.ReplacerProcessor;
 import com.web.crawler.extract.PageExtractor;
@@ -20,7 +21,7 @@ public class PageSnapshotCreator {
     private final PageExtractor pageExtractor;
     private final Set<String> visitedPage;
     private final Replacer replacer;
-    private final Set<String> allLinks;
+    private final Set<CrawledLink> allLinks;
 
     public PageSnapshotCreator(
             WebCrawler webCrawler,
@@ -51,25 +52,25 @@ public class PageSnapshotCreator {
         return new PageSnapshot(pageWithLocalLinks, links);
     }
 
-    private Page makeLinksLocal(Page page, Set<String> links) {
+    private Page makeLinksLocal(Page page, Set<CrawledLink> links) {
         String updatedBody = page.getBody();
 
         //TODO need to localize links, split it to new class ?
         Set<LinkReplacement> linkReplacements = links.stream()
-                .map(link -> new LinkReplacement(link, replacer.makeLocal(page, link)))
+                .map(link -> new LinkReplacement(link.getCrawledFullLink(), replacer.makeLocal(page, link.getCrawledLink())))
                 .collect(toSet());
 
         for (LinkReplacement linkReplacement : linkReplacements) {
             updatedBody = updatedBody.replace(linkReplacement.getOriginal(), linkReplacement.getReplacement());
         }
 
-        return new Page(page.getAddress(),page.getCrawledAddress(), updatedBody);
+        return new Page(page.getAddress(),page.getCrawledLink(), updatedBody);
     }
 
     private Set<PageSnapshot> getLinks(Page root, int depth) {
         return webCrawler.crawl(root)
                 .stream()
-                .peek(p -> allLinks.add(p.getCrawledAddress()))
+                .peek(p -> allLinks.add(p.getCrawledLink()))
                 .filter(p -> !visitedPage.contains(p.getAddress()))
                 .peek(p -> visitedPage.add(p.getAddress()))
                 .map(p -> getPage(p, depth - 1))

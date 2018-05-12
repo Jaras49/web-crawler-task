@@ -2,6 +2,7 @@ package com.web.crawler.crawling;
 
 import com.web.crawler.crawling.builder.FullLinkBuilder;
 import com.web.crawler.extract.PageExtractor;
+import com.web.crawler.model.CrawledLink;
 import com.web.crawler.model.Page;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,7 +38,7 @@ public class CrawlerTest {
         //Given
         Page page = new Page("expected adress", "expectedBody");
 
-        when(regexLinkCrawler.find(page)).thenReturn(Arrays.asList("www.example.com"));
+        when(regexLinkCrawler.find(page)).thenReturn(Arrays.asList(new CrawledLink("", "")));
         when(fullLinkBuilder.checkLinks(page.getAddress(), "www.example.com")).thenReturn("www.example.com");
         when(pageExtractor.extractPage("www.example.com")).thenReturn(new Page("expected adress", "expectedBody"));
 

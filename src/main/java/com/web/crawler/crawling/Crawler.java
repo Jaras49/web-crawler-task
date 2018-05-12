@@ -2,8 +2,8 @@ package com.web.crawler.crawling;
 
 import com.web.crawler.crawling.builder.FullLinkBuilder;
 import com.web.crawler.extract.PageExtractor;
+import com.web.crawler.model.CrawledLink;
 import com.web.crawler.model.Page;
-import com.web.crawler.normalizer.UrlNormalizer;
 
 import java.util.Collection;
 import java.util.List;
@@ -25,10 +25,10 @@ public class Crawler implements WebCrawler {
     @Override
     public Collection<Page> crawl(Page page) {
 
-        List<String> links = regexLinkCrawler.find(page);
+        List<CrawledLink> crawledLinks = regexLinkCrawler.find(page);
 //TODO ZAPYTAC O ZAPIS
-        return links.stream()
-                .map(link -> pageExtractor.extractPage(fullLinkBuilder.checkLinks(page.getAddress(), link), link))
+        return crawledLinks.stream()
+                .map(crawledLink -> pageExtractor.extractPage(fullLinkBuilder.checkLinks(page.getAddress(), crawledLink.getCrawledLink()), crawledLink))
                 .collect(Collectors.toList());
     }
 }

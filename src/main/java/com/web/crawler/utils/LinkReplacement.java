@@ -6,8 +6,8 @@ public class LinkReplacement {
     private final String replacement;
 
     public LinkReplacement(String original, String replacement) {
-        this.original = original + "\"";
-        this.replacement = replacement + "\"";
+        this.original = original;
+        this.replacement = replacement;
     }
 
     public String getOriginal() {
