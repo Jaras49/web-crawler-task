@@ -7,7 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 /**
  * @deprecated
- * This method is deprecated due to its refactor
+ * This class is deprecated due to its refactor
  */
 @Deprecated
 public class LinkModifierTestSuite {

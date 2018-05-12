@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 /**
  * @deprecated
- * This method is deprecated due to its refactor
+ * This class is deprecated due to its refactor
  */
 @Deprecated
 public class LinkModifier implements Modifier {
