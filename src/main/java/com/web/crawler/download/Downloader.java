@@ -17,11 +17,9 @@ public class Downloader implements PageDownloader {
     private static final String SLASH = "\\";
 
     private Generator generator;
-    private Modifier modifier;
 
-    public Downloader(Generator generator, Modifier modifier) {
+    public Downloader(Generator generator) {
         this.generator = generator;
-        this.modifier = modifier;
     }
 
     @Override
@@ -34,7 +32,7 @@ public class Downloader implements PageDownloader {
 
     private void saveFile(PageSnapshot pageSnapshot, File outputDirectory) {
 
-        byte[] data = modifier.modifyLinks(pageSnapshot.getPage()).getBytes();
+        byte[] data = pageSnapshot.getPage().getBody().getBytes();
         Path p = Paths.get(outputDirectory.getAbsolutePath() + SLASH + generator.generateName(pageSnapshot));
 //TODO refactor this try to try-with-resources
         OutputStream out = null;

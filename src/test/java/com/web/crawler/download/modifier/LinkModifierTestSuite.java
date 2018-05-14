@@ -1,10 +1,15 @@
 package com.web.crawler.download.modifier;
 
+import com.web.crawler.model.Page;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-
+/**
+ * @deprecated
+ * This class is deprecated due to its refactor
+ */
+@Deprecated
 public class LinkModifierTestSuite {
     private Modifier modifier;
 
@@ -32,7 +37,7 @@ public class LinkModifierTestSuite {
                 "<li><a href=\"domains/root.html\">Root Zone Management</a></l";
 
         //When
-        String refactoredLinks = modifier.modifyLinks(source);
+        String refactoredLinks = modifier.modifyLinks(new Page("sz", source));
 
         //Then
         assertEquals(expected, refactoredLinks);

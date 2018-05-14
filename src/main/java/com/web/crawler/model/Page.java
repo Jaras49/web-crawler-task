@@ -8,11 +8,19 @@ import java.util.Objects;
 public class Page {
 
     private final String address;
+    private final CrawledLink crawledLink;
     private final String body;
+
+    public Page(String address, CrawledLink crawledAddress, String body) {
+        this.address = address;
+        this.crawledLink = crawledAddress;
+        this.body = body;
+    }
 
     public Page(String address, String body) {
         this.address = address;
         this.body = body;
+        this.crawledLink = new CrawledLink(address,"", address);
     }
 
     @Override
@@ -28,6 +36,10 @@ public class Page {
         return address;
     }
 
+    public CrawledLink getCrawledLink() {
+        return crawledLink;
+    }
+
     public String getBody() {
         return body;
     }
@@ -35,15 +47,17 @@ public class Page {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Page)) return false;
         Page page = (Page) o;
         return Objects.equals(address, page.address) &&
+                Objects.equals(crawledLink, page.crawledLink) &&
                 Objects.equals(body, page.body);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(address, body);
+        return Objects.hash(address, crawledLink, body);
     }
 }
+
