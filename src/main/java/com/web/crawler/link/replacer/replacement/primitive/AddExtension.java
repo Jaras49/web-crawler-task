@@ -1,31 +1,35 @@
-package com.web.crawler.replacer.replacement.primitive;
+package com.web.crawler.link.replacer.replacement.primitive;
 
 import com.web.crawler.model.CrawledLink;
-import com.web.crawler.model.Page;
-import com.web.crawler.replacer.replacement.Replacement;
+import com.web.crawler.link.replacer.replacement.Replacement;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class DontAddExtension implements Replacement {
+public class AddExtension implements Replacement {
 //TODO check if this regex works in all cases
-    private static final String DONT_ADD_EXTENSION_REGEX = "/?[\\w/\\.]*/(\\w+\\.\\w+)";
+    private static final String ADD_EXTENSION_REGEX = "/?[\\w/\\.]*/(\\w+\\w+)?";
 
     @Override
-    public String replace(Page page, CrawledLink crawledLink) {
+    public String replace(CrawledLink crawledLink, String address) {
 
         String link = crawledLink.getCrawledLink();
 
-        if (link.startsWith("/")) {
+        if(link.startsWith("/")) {
             link = link.substring(1, link.length());
         }
-        return crawledLink.getHead() + evaluateDepth(page.getAddress()) + link + crawledLink.getTail();
+
+        if(link.endsWith("/")) {
+            link = link.substring(0, link.length() - 1);
+        }
+
+        return crawledLink.getHead() + evaluateDepth(address) + link + ".html" + crawledLink.getTail();
     }
 
     @Override
     public boolean supports(String link) {
 
-        Matcher m = Pattern.compile(DONT_ADD_EXTENSION_REGEX).matcher(link);
+        Matcher m = Pattern.compile(ADD_EXTENSION_REGEX).matcher(link);
 
         if (m.matches()) {
             return true;
