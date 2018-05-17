@@ -1,18 +1,18 @@
-package com.web.crawler.replacer;
+package com.web.crawler.link.replacer;
 
+import com.web.crawler.link.replacer.replacement.Replacement;
+import com.web.crawler.link.replacer.replacement.primitive.AddExtension;
+import com.web.crawler.link.replacer.replacement.primitive.DontAddExtension;
 import com.web.crawler.model.CrawledLink;
-import com.web.crawler.replacer.replacement.Replacement;
 import com.web.crawler.model.Page;
-import com.web.crawler.replacer.replacement.primitive.AddExtension;
-import com.web.crawler.replacer.replacement.primitive.DontAddExtension;
 
 import java.util.ArrayList;
 
-public class ReplacerProcessor implements Replacer {
+public class LinkReplacerService implements LinkReplacer {
 
     private ArrayList<Replacement> replacements;
 
-    public ReplacerProcessor () {
+    public LinkReplacerService() {
         replacements = new ArrayList<>();
         replacements.add(new AddExtension());
         replacements.add(new DontAddExtension());
@@ -23,7 +23,7 @@ public class ReplacerProcessor implements Replacer {
 
         Replacement replacement = getOperation(crawledLink.getCrawledLink());
         if (replacement != null) {
-            return replacement.replace(page, crawledLink);
+            return replacement.replace(crawledLink, page.getAddress());
         }
         return crawledLink.getCrawledFullLink();
     }

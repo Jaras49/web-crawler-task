@@ -1,9 +1,9 @@
-package com.web.crawler.replacer;
+package com.web.crawler.link.replacer;
 
 import com.web.crawler.model.CrawledLink;
 import com.web.crawler.model.Page;
 //TODO get better name for those classes
-public interface Replacer {
+public interface LinkReplacer {
 
     String makeLocal(Page page, CrawledLink crawledLink);
 }
