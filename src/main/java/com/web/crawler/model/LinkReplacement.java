@@ -1,4 +1,4 @@
-package com.web.crawler.utils;
+package com.web.crawler.model;
 
 public class LinkReplacement {
 
