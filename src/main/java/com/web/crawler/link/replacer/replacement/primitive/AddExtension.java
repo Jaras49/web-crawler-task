@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class AddExtension implements Replacement {
 //TODO check if this regex works in all cases
-    private static final String ADD_EXTENSION_REGEX = "/?[\\w/\\.]*/(\\w+\\w+)?";
+    private static final String ADD_EXTENSION_REGEX = "(/?[\\w/\\-]*/?)+([\\w\\-]+)?";
 
     @Override
     public String replace(CrawledLink crawledLink, String address) {
