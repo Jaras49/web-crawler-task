@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class RelativeWithoutExtension implements Replacement {
 //TODO check if this regex works in all cases
-    private static final String ADD_EXTENSION_REGEX = "(/?[\\w/\\-]*/?)+([\\w\\-]+)?";
+    private static final String RELATIVE_WITHOUT_EXTENSION_REGEX = "(/?[\\w/\\-]*/?)+([\\w\\-]+)?";
 
     @Override
     public String replace(CrawledLink crawledLink, String address) {
@@ -29,7 +29,7 @@ public class RelativeWithoutExtension implements Replacement {
     @Override
     public boolean supports(String link) {
 
-        Matcher m = Pattern.compile(ADD_EXTENSION_REGEX).matcher(link);
+        Matcher m = Pattern.compile(RELATIVE_WITHOUT_EXTENSION_REGEX).matcher(link);
 
         if (m.matches()) {
             return true;
