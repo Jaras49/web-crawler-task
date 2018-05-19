@@ -1,11 +1,11 @@
 package com.web.crawler.link.replacer;
 
 import com.web.crawler.link.replacer.replacement.Replacement;
-import com.web.crawler.link.replacer.replacement.primitive.AddExtension;
-import com.web.crawler.link.replacer.replacement.primitive.DontAddExtension;
+import com.web.crawler.link.replacer.replacement.relative.address.RelativeWithoutExtension;
+import com.web.crawler.link.replacer.replacement.relative.address.RelativeWithExtension;
 import com.web.crawler.model.CrawledLink;
 import com.web.crawler.model.Page;
-
+//TODO TEST it ?
 import java.util.ArrayList;
 
 public class LinkReplacerService implements LinkReplacer {
@@ -14,8 +14,8 @@ public class LinkReplacerService implements LinkReplacer {
 
     public LinkReplacerService() {
         replacements = new ArrayList<>();
-        replacements.add(new AddExtension());
-        replacements.add(new DontAddExtension());
+        replacements.add(new RelativeWithoutExtension());
+        replacements.add(new RelativeWithExtension());
     }
 
     @Override
@@ -37,5 +37,4 @@ public class LinkReplacerService implements LinkReplacer {
         }
         return null;
     }
-
 }

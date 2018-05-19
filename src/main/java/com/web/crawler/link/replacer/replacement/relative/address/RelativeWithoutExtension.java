@@ -1,4 +1,4 @@
-package com.web.crawler.link.replacer.replacement.primitive;
+package com.web.crawler.link.replacer.replacement.relative.address;
 
 import com.web.crawler.model.CrawledLink;
 import com.web.crawler.link.replacer.replacement.Replacement;
@@ -6,7 +6,7 @@ import com.web.crawler.link.replacer.replacement.Replacement;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class AddExtension implements Replacement {
+public class RelativeWithoutExtension implements Replacement {
 //TODO check if this regex works in all cases
     private static final String ADD_EXTENSION_REGEX = "(/?[\\w/\\-]*/?)+([\\w\\-]+)?";
 

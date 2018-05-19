@@ -1,4 +1,4 @@
-package com.web.crawler.link.replacer.replacement.primitive;
+package com.web.crawler.link.replacer.replacement.relative.address;
 
 import com.web.crawler.model.CrawledLink;
 import org.junit.Test;
@@ -14,19 +14,19 @@ import java.util.Collection;
 import static org.junit.Assert.*;
 
 @RunWith(Enclosed.class)
-public class DontAddExtensionTestSuite {
+public class RelativeWithExtensionTestSuite {
 
     @RunWith(Parameterized.class)
     public static class ReplaceMethodTest {
 
         private CrawledLink crawledLink;
         private String expected;
-        private DontAddExtension dontAddExtension;
+        private RelativeWithExtension relativeWithExtension;
 
         public ReplaceMethodTest(CrawledLink crawledLink, String expected) {
             this.crawledLink = crawledLink;
             this.expected = expected;
-            dontAddExtension = new DontAddExtension();
+            relativeWithExtension = new RelativeWithExtension();
         }
 
         @Parameters
@@ -39,14 +39,14 @@ public class DontAddExtensionTestSuite {
 
         @Test
         public void shouldBuildLocalLink() {
-            assertEquals(expected, dontAddExtension.replace(crawledLink, "https://www.testCase.org/"));
+            assertEquals(expected, relativeWithExtension.replace(crawledLink, "https://www.testCase.org/"));
         }
     }
 
     @RunWith(Parameterized.class)
     public static class SupportsMethodTest {
 
-        private DontAddExtension dontAddExtension = new DontAddExtension();
+        private RelativeWithExtension relativeWithExtension = new RelativeWithExtension();
 
         @Parameters
         public static Collection data() {
@@ -75,7 +75,7 @@ public class DontAddExtensionTestSuite {
 
         @Test
         public void shouldTestSupports() {
-            assertEquals(expectedResult, dontAddExtension.supports(link));
+            assertEquals(expectedResult, relativeWithExtension.supports(link));
         }
     }
 }
