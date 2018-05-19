@@ -5,8 +5,7 @@ import com.web.crawler.model.Page;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class RegexLinkCrawlerTest {
@@ -72,7 +71,9 @@ public class RegexLinkCrawlerTest {
         List<CrawledLink> result = regexLinkCrawler.find(new Page(url, websiteSource));
 
         //Then
-        Assert.assertEquals(Arrays.asList("http://www.iana.org/domains/example"), result);
+        Assert.assertEquals(Collections.singletonList(new CrawledLink(
+                        "href=\"http://www.iana.org/domains/example\"", "href=\"", "http://www.iana.org/domains/example")),
+                result);
 
     }
 }
