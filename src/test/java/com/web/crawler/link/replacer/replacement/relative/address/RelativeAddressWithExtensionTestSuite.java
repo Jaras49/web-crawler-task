@@ -14,19 +14,19 @@ import java.util.Collection;
 import static org.junit.Assert.*;
 
 @RunWith(Enclosed.class)
-public class RelativeWithExtensionTestSuite {
+public class RelativeAddressWithExtensionTestSuite {
 
     @RunWith(Parameterized.class)
     public static class ReplaceMethodTest {
 
         private CrawledLink crawledLink;
         private String expected;
-        private RelativeWithExtension relativeWithExtension;
+        private RelativeAddressWithExtension relativeAddressWithExtension;
 
         public ReplaceMethodTest(CrawledLink crawledLink, String expected) {
             this.crawledLink = crawledLink;
             this.expected = expected;
-            relativeWithExtension = new RelativeWithExtension();
+            relativeAddressWithExtension = new RelativeAddressWithExtension();
         }
 
         @Parameters
@@ -39,14 +39,14 @@ public class RelativeWithExtensionTestSuite {
 
         @Test
         public void shouldBuildLocalLink() {
-            assertEquals(expected, relativeWithExtension.replace(crawledLink, "https://www.testCase.org/"));
+            assertEquals(expected, relativeAddressWithExtension.replace(crawledLink, "https://www.testCase.org/"));
         }
     }
 
     @RunWith(Parameterized.class)
     public static class SupportsMethodTest {
 
-        private RelativeWithExtension relativeWithExtension = new RelativeWithExtension();
+        private RelativeAddressWithExtension relativeAddressWithExtension = new RelativeAddressWithExtension();
 
         @Parameters
         public static Collection data() {
@@ -60,7 +60,6 @@ public class RelativeWithExtensionTestSuite {
                     {"http://www.icann.org/", false},
                     {"/_css/2015.1/screen.css", true},
                     {"about", false},
-                    {"about.html", false},
                     {"/domains/root/db", false},
                     {"/_js/2013.1/jquery.js", true},
                     {"/_img/bookmark_icon.ico", true}
@@ -75,7 +74,7 @@ public class RelativeWithExtensionTestSuite {
 
         @Test
         public void shouldTestSupports() {
-            assertEquals(expectedResult, relativeWithExtension.supports(link));
+            assertEquals(expectedResult, relativeAddressWithExtension.supports(link));
         }
     }
 }

@@ -5,8 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-
-public class RelativeWithoutExtensionTestSuite {
+//TODO refactor this test to parameterized test
+public class RelativeAddressWithoutExtensionTestSuite {
 
     //Given
     private String testAddress1 = "https://www.testCase.org/";
@@ -33,7 +33,7 @@ public class RelativeWithoutExtensionTestSuite {
     private CrawledLink crawledLinkTestCase9;
     private CrawledLink crawledLinkTestCase10;
     private CrawledLink crawledLinkTestCase11;
-    private RelativeWithoutExtension relativeWithoutExtension;
+    private RelativeAddressWithoutExtension relativeAddressWithoutExtension;
 
     @Before
     public void setUp() throws Exception {
@@ -50,21 +50,21 @@ public class RelativeWithoutExtensionTestSuite {
         crawledLinkTestCase10 = new CrawledLink("", "href=\"", testCase10);
         crawledLinkTestCase11 = new CrawledLink("", "href=\"", testCase11);
 
-        relativeWithoutExtension = new RelativeWithoutExtension();
+        relativeAddressWithoutExtension = new RelativeAddressWithoutExtension();
     }
 
     @Test
     public void shouldBuildLocalLinksWithExtension() {
 
         //When
-        String result1 = relativeWithoutExtension.replace(crawledLinkTestCase1, testAddress1);
-        String result2 = relativeWithoutExtension.replace(crawledLinkTestCase2, testAddress1);
-        String result3 = relativeWithoutExtension.replace(crawledLinkTestCase3, testAddress1);
-        String result4 = relativeWithoutExtension.replace(crawledLinkTestCase4, testAddress1);
-        String result5 = relativeWithoutExtension.replace(crawledLinkTestCase5, testAddress1);
-        String result6 = relativeWithoutExtension.replace(crawledLinkTestCase6, testAddress1);
-        String result9 = relativeWithoutExtension.replace(crawledLinkTestCase9, testAddress1);
-        String result11 = relativeWithoutExtension.replace(crawledLinkTestCase11, testAddress1);
+        String result1 = relativeAddressWithoutExtension.replace(crawledLinkTestCase1, testAddress1);
+        String result2 = relativeAddressWithoutExtension.replace(crawledLinkTestCase2, testAddress1);
+        String result3 = relativeAddressWithoutExtension.replace(crawledLinkTestCase3, testAddress1);
+        String result4 = relativeAddressWithoutExtension.replace(crawledLinkTestCase4, testAddress1);
+        String result5 = relativeAddressWithoutExtension.replace(crawledLinkTestCase5, testAddress1);
+        String result6 = relativeAddressWithoutExtension.replace(crawledLinkTestCase6, testAddress1);
+        String result9 = relativeAddressWithoutExtension.replace(crawledLinkTestCase9, testAddress1);
+        String result11 = relativeAddressWithoutExtension.replace(crawledLinkTestCase11, testAddress1);
 
         //Then
         assertEquals("href=\"about.html\"", result1);
@@ -83,14 +83,14 @@ public class RelativeWithoutExtensionTestSuite {
 
         //When
         //When
-        String result1 = relativeWithoutExtension.replace(crawledLinkTestCase1, testAddress2);
-        String result2 = relativeWithoutExtension.replace(crawledLinkTestCase2, testAddress2);
-        String result3 = relativeWithoutExtension.replace(crawledLinkTestCase3, testAddress2);
-        String result4 = relativeWithoutExtension.replace(crawledLinkTestCase4, testAddress2);
-        String result5 = relativeWithoutExtension.replace(crawledLinkTestCase5, testAddress2);
-        String result6 = relativeWithoutExtension.replace(crawledLinkTestCase6, testAddress2);
-        String result9 = relativeWithoutExtension.replace(crawledLinkTestCase9, testAddress2);
-        String result11 = relativeWithoutExtension.replace(crawledLinkTestCase11, testAddress2);
+        String result1 = relativeAddressWithoutExtension.replace(crawledLinkTestCase1, testAddress2);
+        String result2 = relativeAddressWithoutExtension.replace(crawledLinkTestCase2, testAddress2);
+        String result3 = relativeAddressWithoutExtension.replace(crawledLinkTestCase3, testAddress2);
+        String result4 = relativeAddressWithoutExtension.replace(crawledLinkTestCase4, testAddress2);
+        String result5 = relativeAddressWithoutExtension.replace(crawledLinkTestCase5, testAddress2);
+        String result6 = relativeAddressWithoutExtension.replace(crawledLinkTestCase6, testAddress2);
+        String result9 = relativeAddressWithoutExtension.replace(crawledLinkTestCase9, testAddress2);
+        String result11 = relativeAddressWithoutExtension.replace(crawledLinkTestCase11, testAddress2);
 
         //Then
         assertEquals("href=\"../../about.html\"", result1);
@@ -107,17 +107,17 @@ public class RelativeWithoutExtensionTestSuite {
     public void shouldSupportOperation() {
 
         //When
-        boolean result1 = relativeWithoutExtension.supports(testCase1);
-        boolean result2 = relativeWithoutExtension.supports(testCase2);
-        boolean result3 = relativeWithoutExtension.supports(testCase3);
-        boolean result4 = relativeWithoutExtension.supports(testCase4);
-        boolean result5 = relativeWithoutExtension.supports(testCase5);
-        boolean result6 = relativeWithoutExtension.supports(testCase6);
-        boolean result7 = relativeWithoutExtension.supports(testCase7);
-        boolean result8 = relativeWithoutExtension.supports(testCase8);
-        boolean result9 = relativeWithoutExtension.supports(testCase9);
-        boolean result10 = relativeWithoutExtension.supports(testCase10);
-        boolean result11 = relativeWithoutExtension.supports(testCase11);
+        boolean result1 = relativeAddressWithoutExtension.supports(testCase1);
+        boolean result2 = relativeAddressWithoutExtension.supports(testCase2);
+        boolean result3 = relativeAddressWithoutExtension.supports(testCase3);
+        boolean result4 = relativeAddressWithoutExtension.supports(testCase4);
+        boolean result5 = relativeAddressWithoutExtension.supports(testCase5);
+        boolean result6 = relativeAddressWithoutExtension.supports(testCase6);
+        boolean result7 = relativeAddressWithoutExtension.supports(testCase7);
+        boolean result8 = relativeAddressWithoutExtension.supports(testCase8);
+        boolean result9 = relativeAddressWithoutExtension.supports(testCase9);
+        boolean result10 = relativeAddressWithoutExtension.supports(testCase10);
+        boolean result11 = relativeAddressWithoutExtension.supports(testCase11);
 
         //Then
         assertTrue(result1);
