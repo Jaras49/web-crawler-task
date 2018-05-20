@@ -3,12 +3,12 @@ package com.web.crawler;
 import com.web.crawler.crawling.RegexLinkCrawler;
 import com.web.crawler.crawling.WebCrawler;
 import com.web.crawler.model.CrawledLink;
-import com.web.crawler.replacer.Replacer;
-import com.web.crawler.replacer.ReplacerProcessor;
+import com.web.crawler.link.replacer.LinkReplacer;
+import com.web.crawler.link.replacer.LinkReplacerService;
 import com.web.crawler.extract.PageExtractor;
 import com.web.crawler.model.Page;
 import com.web.crawler.model.PageSnapshot;
-import com.web.crawler.utils.LinkReplacement;
+import com.web.crawler.model.LinkReplacement;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -23,7 +23,7 @@ public class PageSnapshotCreator {
     private final WebCrawler webCrawler;
     private final PageExtractor pageExtractor;
     private final Set<String> visitedPage;
-    private final Replacer replacer;
+    private final LinkReplacer linkReplacer;
     private final List<CrawledLink> allLinks;
 
     public PageSnapshotCreator(
@@ -33,7 +33,7 @@ public class PageSnapshotCreator {
         this.webCrawler = webCrawler;
         this.pageExtractor = pageExtractor;
         this.visitedPage = new HashSet<>();
-        this.replacer = new ReplacerProcessor();
+        this.linkReplacer = new LinkReplacerService();
         this.allLinks = new ArrayList<>();
     }
 
@@ -63,7 +63,7 @@ public class PageSnapshotCreator {
 
         //TODO need to localize links, split it to new class ?
         Set<LinkReplacement> linkReplacements = links.stream()
-                .map(link -> new LinkReplacement(link.getCrawledFullLink(), replacer.makeLocal(page, link)))
+                .map(link -> new LinkReplacement(link.getCrawledFullLink(), linkReplacer.makeLocal(page, link)))
                 .collect(toSet());
 
         for (LinkReplacement linkReplacement : linkReplacements) {

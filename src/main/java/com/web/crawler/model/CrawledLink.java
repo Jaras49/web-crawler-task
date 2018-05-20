@@ -3,7 +3,7 @@ package com.web.crawler.model;
 import java.util.Objects;
 
 public final class CrawledLink {
-
+//TODO move address field from Page here
     private final String crawledFullLink;
     private final String head;
     private final String crawledLink;

@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class NameGenerator implements Generator {
 //TODO check if better REGEX`s can be implemented. Need to think of better naming alghoritm for different types of files
     private static final String MAIN_LINK_REGEX = "http[s]*://www\\.[\\w-]+\\.\\w+";
-    private static final String GENERATE_NAME_REGEX = "\\w+\\..*\\w+";
+    public static final String GENERATE_NAME_REGEX = "\\w+\\..*\\w+";
     private static final String CSS_JS_REGEX = "(\\.css|\\.js)";
 
     public String generateName(PageSnapshot pageSnapshot) {

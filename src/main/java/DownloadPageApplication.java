@@ -4,7 +4,6 @@ import com.web.crawler.crawling.RegexLinkCrawler;
 import com.web.crawler.crawling.builder.FullLinkBuilder;
 import com.web.crawler.download.Downloader;
 import com.web.crawler.download.PageDownloader;
-import com.web.crawler.download.modifier.LinkModifier;
 import com.web.crawler.download.namegenerator.NameGenerator;
 import com.web.crawler.extract.HttpPageExtractor;
 import com.web.crawler.normalizer.UrlNormalizer;

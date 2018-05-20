@@ -49,7 +49,7 @@ public class PageSnapshotCreatorTestSuite {
         assertEquals(pages.size(), node.getLinks().size());
         assertEquals(pages, node.getLinks());
     }
-
+//TODO implement this test
     @Test
     public void shouldMakeLinksLocal() {
 

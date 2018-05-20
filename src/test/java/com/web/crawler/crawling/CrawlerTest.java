@@ -9,8 +9,8 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
@@ -36,14 +36,16 @@ public class CrawlerTest {
     public void crawl() {
 
         //Given
-        Page page = new Page("expected adress", "expectedBody");
+        Page page = new Page("test address", "testBody");
+        CrawledLink crawledLink = new CrawledLink("href=\"www.example.com\"", "href=\"", "www.example.com");
+        Page expectedPage = new Page("expected address", crawledLink, "expectedBody");
 
-        when(regexLinkCrawler.find(page)).thenReturn(Arrays.asList(new CrawledLink("", "")));
-        when(fullLinkBuilder.checkLinks(page.getAddress(), "www.example.com")).thenReturn("www.example.com");
-        when(pageExtractor.extractPage("www.example.com")).thenReturn(new Page("expected adress", "expectedBody"));
+        when(regexLinkCrawler.find(page)).thenReturn(Collections.singletonList(crawledLink));
+        when(fullLinkBuilder.checkLinks(page.getAddress(), crawledLink.getCrawledLink())).thenReturn("www.example.com");
+        when(pageExtractor.extractPage("www.example.com", crawledLink)).thenReturn(expectedPage);
 
         Collection<Page> expected = new ArrayList<>();
-        expected.add(new Page("expected adress", "expectedBody"));
+        expected.add(expectedPage);
 
         //When
         Collection<Page> pages = crawler.crawl(page);
