@@ -1,8 +1,9 @@
 package com.web.crawler.link.replacer;
 
 import com.web.crawler.link.replacer.replacement.Replacement;
-import com.web.crawler.link.replacer.replacement.relative.address.RelativeWithoutExtension;
-import com.web.crawler.link.replacer.replacement.relative.address.RelativeWithExtension;
+import com.web.crawler.link.replacer.replacement.absolute.address.AbsoluteAddress;
+import com.web.crawler.link.replacer.replacement.relative.address.RelativeAddressWithoutExtension;
+import com.web.crawler.link.replacer.replacement.relative.address.RelativeAddressWithExtension;
 import com.web.crawler.model.CrawledLink;
 import com.web.crawler.model.Page;
 //TODO TEST it ?
@@ -14,8 +15,9 @@ public class LinkReplacerService implements LinkReplacer {
 
     public LinkReplacerService() {
         replacements = new ArrayList<>();
-        replacements.add(new RelativeWithoutExtension());
-        replacements.add(new RelativeWithExtension());
+        replacements.add(new RelativeAddressWithoutExtension());
+        replacements.add(new RelativeAddressWithExtension());
+        replacements.add(new AbsoluteAddress());
     }
 
     @Override
