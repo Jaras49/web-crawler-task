@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 @RunWith(Enclosed.class)
 public class AbsoluteAddressTestSuite {
 
-    private static final String TEST_ADDRESS_1 = "https://www.testCase.org/";
+    private static final String TEST_ADDRESS_1 = "https://www.testCase.org";
 
     @RunWith(Parameterized.class)
     public static class ReplaceMethodTest {
@@ -27,8 +27,8 @@ public class AbsoluteAddressTestSuite {
         @Parameters
         public static Collection data() {
             return Arrays.asList(new Object[][]{
-                    {new CrawledLink("", "href=\"", "http://www.icann.org"), "href=\"icann.org\""},
-                    {new CrawledLink("", "href=\"", "http://pti.icann.org"), "href=\"pti.icann.org\""}
+                    {new CrawledLink("", "href=\"", "http://www.icann.org"), "href=\"../icann.org\""},
+                    {new CrawledLink("", "href=\"", "http://pti.icann.org"), "href=\"../pti.icann.org\""}
             });
         }
 
