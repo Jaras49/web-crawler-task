@@ -37,12 +37,12 @@ public class CrawlerTest {
     public void crawl() {
 
         //Given
-        Page page = new Page("test address", "testBody");
-        Address address = new Address("href=\"www.example.com\"", "href=\"", "www.example.com");
-        Page expectedPage = new Page("expected address", address, "expectedBody");
+        Page page = new Page(new Address("testAddress"), "testBody");
+        Address address = new Address("pageAddress");
+        Page expectedPage = new Page(new Address("testAddress"), "expectedBody");
 
         when(regexLinkCrawler.find(page)).thenReturn(Collections.singletonList(address));
-        when(fullLinkBuilder.checkLinks(page.getAddress(), address.getCrawledLink())).thenReturn("www.example.com");
+        when(fullLinkBuilder.checkLinks(address.getParentPageAddress(), address.getCrawledLink())).thenReturn("www.example.com");
         when(pageExtractor.extractPage("www.example.com", address)).thenReturn(expectedPage);
 
         Collection<Page> expected = new ArrayList<>();

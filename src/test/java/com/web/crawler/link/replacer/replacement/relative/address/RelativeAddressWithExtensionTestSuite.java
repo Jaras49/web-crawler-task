@@ -32,14 +32,14 @@ public class RelativeAddressWithExtensionTestSuite {
         @Parameters
         public static Collection<Object[]> data() {
             return Arrays.asList(new Object[][]{
-                    {new Address("", "src=\"", "/_css/2015.1/screen.css"),
+                    {new Address("", "https://www.testCase.org/", "", "src=\"", "/_css/2015.1/screen.css"),
                             "src=\"_css/2015.1/screen.css\""},
             });
         }
 
         @Test
         public void shouldBuildLocalLink() {
-            assertEquals(expected, relativeAddressWithExtension.replace(address, "https://www.testCase.org/"));
+            assertEquals(expected, relativeAddressWithExtension.replace(address));
         }
     }
 

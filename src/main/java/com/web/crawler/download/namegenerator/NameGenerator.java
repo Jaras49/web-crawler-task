@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class NameGenerator implements Generator {
-//TODO check if better REGEX`s can be implemented. Need to think of better naming alghoritm for different types of files
+    //TODO check if better REGEX`s can be implemented. Need to think of better naming alghoritm for different types of files
     private static final String MAIN_LINK_REGEX = "http[s]*://www\\.[\\w-]+\\.\\w+";
     public static final String GENERATE_NAME_REGEX = "(\\w+)?\\.?.*\\w+";
     private static final String CSS_JS_REGEX = "(\\.css|\\.js)";
@@ -20,8 +20,7 @@ public class NameGenerator implements Generator {
 
         if (mainLink.matches()) {
             return generateIndexHtml(url);
-        }
-        else if (cssJs.find()) {
+        } else if (cssJs.find()) {
             return generateCssJs(url);
         }
 
@@ -31,14 +30,10 @@ public class NameGenerator implements Generator {
     private String generate(String url) {
 
         Matcher m = Pattern.compile(GENERATE_NAME_REGEX).matcher(url);
-        String generatedUrl = "";
-        try {
-            m.find();
 
-            generatedUrl = m.group(0);
-        } catch (IllegalStateException ex) {
-            System.out.println(url);
-        }
+        m.find();
+
+        String generatedUrl = m.group(0);
         generatedUrl = generatedUrl.replaceAll("www\\.", "");
         generatedUrl = generatedUrl.replace("/", "\\");
 
@@ -52,7 +47,7 @@ public class NameGenerator implements Generator {
         return url + "\\index.html";
     }
 
-    private String generateCssJs (String url) {
+    private String generateCssJs(String url) {
 
         url = generate(url);
 

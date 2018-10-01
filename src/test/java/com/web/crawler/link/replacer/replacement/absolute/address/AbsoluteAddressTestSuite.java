@@ -23,12 +23,12 @@ public class AbsoluteAddressTestSuite {
 
         private AbsoluteAddress absoluteAddress = new AbsoluteAddress();
 
-
         @Parameters
         public static Collection data() {
             return Arrays.asList(new Object[][]{
-                    {new Address("", "href=\"", "http://www.icann.org"), "href=\"../icann.org\""},
-                    {new Address("", "href=\"", "http://pti.icann.org"), "href=\"../pti.icann.org\""}
+                    {new Address("www.icann.org", "https://www.testCase.org", "", "", "www.icann.org"),
+                            "href=\"../icann.org\""},
+                    //{new Address("", "href=\"", "http://pti.icann.org"), "href=\"../pti.icann.org\""}
             });
         }
 
@@ -39,7 +39,7 @@ public class AbsoluteAddressTestSuite {
 
         @Test
         public void shouldBuildLocalLinks() {
-            assertEquals(expectedResult, absoluteAddress.replace(address, TEST_ADDRESS_1));
+            assertEquals(expectedResult, absoluteAddress.replace(address));
         }
 
     }

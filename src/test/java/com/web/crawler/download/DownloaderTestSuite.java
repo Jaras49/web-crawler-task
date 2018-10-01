@@ -2,6 +2,7 @@ package com.web.crawler.download;
 
 import com.web.crawler.download.modifier.LinkModifier;
 import com.web.crawler.download.namegenerator.NameGenerator;
+import com.web.crawler.model.Address;
 import com.web.crawler.model.Page;
 import com.web.crawler.model.PageSnapshot;
 import org.junit.Before;
@@ -29,9 +30,9 @@ public class DownloaderTestSuite {
     public void shouldDownloadPage() throws IOException {
 
         //Given
-        Page page = new Page("https://www.example.com", "example");
+        Page page = new Page(new Address("dummy"), "example");
         Collection<PageSnapshot> links = new HashSet<>();
-        links.add(new PageSnapshot(new Page("https://www.example.com/contact/domains", "contactBody"), new HashSet<>()));
+        links.add(new PageSnapshot(new Page(new Address("dummy"), "contactBody"), new HashSet<>()));
 
         PageSnapshot pageSnapshot = new PageSnapshot(page, links);
 

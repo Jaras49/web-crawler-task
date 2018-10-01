@@ -1,5 +1,6 @@
 package com.web.crawler.download.modifier;
 
+import com.web.crawler.model.Address;
 import com.web.crawler.model.Page;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,7 +38,7 @@ public class LinkModifierTestSuite {
                 "<li><a href=\"domains/root.html\">Root Zone Management</a></l";
 
         //When
-        String refactoredLinks = modifier.modifyLinks(new Page("sz", source));
+        String refactoredLinks = modifier.modifyLinks(new Page(new Address("dummyData"), source));
 
         //Then
         assertEquals(expected, refactoredLinks);

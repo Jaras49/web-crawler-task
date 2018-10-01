@@ -1,5 +1,6 @@
 package com.web.crawler.extract;
 
+import com.web.crawler.model.Address;
 import com.web.crawler.model.Page;
 import org.junit.Test;
 
@@ -25,7 +26,7 @@ public class HttpPageExtractorTest {
         String body = Files.readAllLines(Paths.get(resource.toURI())).stream()
                 .collect(Collectors.joining("\n"));
 
-        Page page = new Page(link, body);
+        Page page = new Page(new Address(link), body);
         PageExtractor pageExtractor = new HttpPageExtractor();
 
         //When

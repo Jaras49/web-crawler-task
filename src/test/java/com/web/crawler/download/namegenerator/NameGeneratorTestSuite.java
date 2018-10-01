@@ -1,5 +1,6 @@
 package com.web.crawler.download.namegenerator;
 
+import com.web.crawler.model.Address;
 import com.web.crawler.model.Page;
 import com.web.crawler.model.PageSnapshot;
 import org.junit.Before;
@@ -21,10 +22,10 @@ public class NameGeneratorTestSuite {
     @Test
     public void ShouldGenerateName() {
         //Given
-        PageSnapshot testCase1 = new PageSnapshot(new Page("http://www.iana.org", "exampleBody"), new HashSet<>());
-        PageSnapshot testCase2 = new PageSnapshot(new Page("http://www.iana.org/domains/reserved/", "exampleBody"), new HashSet<>());
-        PageSnapshot testCase3 = new PageSnapshot(new Page("www.iana.org/domains/reserved/", "exampleBody"), new HashSet<>());
-        PageSnapshot testCase4 = new PageSnapshot(new Page("iana.org/domains/reserved/", "exampleBody"), new HashSet<>());
+        PageSnapshot testCase1 = new PageSnapshot(new Page(new Address("http://www.iana.org"), "exampleBody"), new HashSet<>());
+        PageSnapshot testCase2 = new PageSnapshot(new Page(new Address("http://www.iana.org/domains/reserved/"), "exampleBody"), new HashSet<>());
+        PageSnapshot testCase3 = new PageSnapshot(new Page(new Address("www.iana.org/domains/reserved/"), "exampleBody"), new HashSet<>());
+        PageSnapshot testCase4 = new PageSnapshot(new Page(new Address("iana.org/domains/reserved/"), "exampleBody"), new HashSet<>());
 
         //When
         String generatedName1 = generator.generateName(testCase1);

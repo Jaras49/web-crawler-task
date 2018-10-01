@@ -69,12 +69,16 @@ public class RegexLinkCrawlerTest {
                 "</html>\n";
 
         //When
-        List<Address> result = regexLinkCrawler.find(new Page(url, websiteSource));
+        List<Address> result = regexLinkCrawler.find(new Page(new Address(url), websiteSource));
 
         //Then
-        Assert.assertEquals(Collections.singletonList(new Address(
-                        "href=\"http://www.iana.org/domains/example\"", "href=\"", "http://www.iana.org/domains/example")),
+        Assert.assertEquals(Collections.singletonList(
+                new Address(
+                        "http://www.iana.org/domains/example",
+                        "http://example.com/",
+                        "href=\"http://www.iana.org/domains/example\"",
+                        "href=\"",
+                        "http://www.iana.org/domains/example")),
                 result);
-
     }
 }
