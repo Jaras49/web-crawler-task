@@ -1,6 +1,6 @@
 package com.web.crawler.crawling.strategy;
 
-import com.web.crawler.model.CrawledLink;
+import com.web.crawler.model.Address;
 import com.web.crawler.model.Page;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Attribute;
@@ -21,18 +21,18 @@ public class RegexLinkCrawler implements RegexCrawler {
     //TODO implement better regex`s
     private static final String LINK_REGEX = "((href|src)=\\\")([\\w\\d-_:\\./]+)\\\"";
 
-    public List<CrawledLink> find(Page page) {
+    public List<Address> find(Page page) {
 
-        List<CrawledLink> crawledLinks = new ArrayList<>();
+        List<Address> addresses = new ArrayList<>();
 
         Pattern p = Pattern.compile(LINK_REGEX);
 
         Matcher m = p.matcher(page.getBody());
 
         while (m.find()) {
-            crawledLinks.add(new CrawledLink(m.group(0), m.group(1), m.group(3)));
+            addresses.add(new Address(m.group(3), page.getAddress().getPageAddress(), m.group(0), m.group(1), m.group(3)));
         }
-        return crawledLinks;
+        return addresses;
     }
 
     @Override

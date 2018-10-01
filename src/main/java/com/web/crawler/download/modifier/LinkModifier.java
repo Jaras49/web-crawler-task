@@ -29,7 +29,7 @@ public class LinkModifier implements Modifier {
         }
         m.appendTail(sb);
 
-        return process(page.getAddress(), sb.toString());
+        return process(page.getAddress().getPageAddress(), sb.toString());
     }
     private String process(String address,String websiteSource) {
 

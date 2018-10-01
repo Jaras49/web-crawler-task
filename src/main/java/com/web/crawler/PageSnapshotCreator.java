@@ -2,7 +2,7 @@ package com.web.crawler;
 
 import com.web.crawler.crawling.strategy.RegexLinkCrawler;
 import com.web.crawler.crawling.WebCrawler;
-import com.web.crawler.model.CrawledLink;
+import com.web.crawler.model.Address;
 import com.web.crawler.link.replacer.LinkReplacer;
 import com.web.crawler.link.replacer.LinkReplacerService;
 import com.web.crawler.extract.PageExtractor;
@@ -24,7 +24,7 @@ public class PageSnapshotCreator {
     private final PageExtractor pageExtractor;
     private final Set<String> visitedPage;
     private final LinkReplacer linkReplacer;
-    private final List<CrawledLink> allLinks;
+    private final List<Address> allLinks;
 
     public PageSnapshotCreator(
             WebCrawler webCrawler,
@@ -45,8 +45,8 @@ public class PageSnapshotCreator {
     private PageSnapshot getPage(Page page, int depth) {
 //TODO This is test POC, zapytać Kamila o najlepsze rozwiązanie
         RegexLinkCrawler regexLinkCrawler = new RegexLinkCrawler();
-        List<CrawledLink> crawledLinks = regexLinkCrawler.find(page);
-        allLinks.addAll(crawledLinks);
+        List<Address> addresses = regexLinkCrawler.find(page);
+        allLinks.addAll(addresses);
         if (depth == 0) {
             return new PageSnapshot(makeLinksLocal(page, allLinks), emptyList());
         }
@@ -58,26 +58,26 @@ public class PageSnapshotCreator {
         return new PageSnapshot(pageWithLocalLinks, links);
     }
 
-    private Page makeLinksLocal(Page page, List<CrawledLink> links) {
+    private Page makeLinksLocal(Page page, List<Address> links) {
         String updatedBody = page.getBody();
 
         //TODO need to localize links, split it to new class ?
         Set<LinkReplacement> linkReplacements = links.stream()
-                .map(link -> new LinkReplacement(link.getCrawledFullLink(), linkReplacer.makeLocal(page, link)))
+                .map(link -> new LinkReplacement(link.getCrawledEntity(), linkReplacer.makeLocal(link)))
                 .collect(toSet());
 
         for (LinkReplacement linkReplacement : linkReplacements) {
             updatedBody = updatedBody.replace(linkReplacement.getOriginal(), linkReplacement.getReplacement());
         }
 
-        return new Page(page.getAddress(),page.getCrawledLink(), updatedBody);
+        return new Page(page.getAddress(), updatedBody);
     }
 
     private Set<PageSnapshot> getLinks(Page root, int depth) {
         return webCrawler.crawl(root)
                 .stream()
-                .filter(p -> !visitedPage.contains(p.getAddress()))
-                .peek(p -> visitedPage.add(p.getAddress()))
+                .filter(p -> !visitedPage.contains(p.getAddress().getPageAddress()))
+                .peek(p -> visitedPage.add(p.getAddress().getPageAddress()))
                 .map(p -> getPage(p, depth - 1))
                 .collect(toSet());
     }

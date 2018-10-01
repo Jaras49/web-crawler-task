@@ -1,6 +1,6 @@
 package com.web.crawler.link.replacer.replacement.relative.address;
 
-import com.web.crawler.model.CrawledLink;
+import com.web.crawler.model.Address;
 import com.web.crawler.link.replacer.replacement.Replacement;
 
 import java.util.regex.Matcher;
@@ -11,7 +11,7 @@ public class RelativeAddressWithoutExtension implements Replacement {
     private static final String RELATIVE_WITHOUT_EXTENSION_REGEX = "(/?[\\w/\\-]*/?)+([\\w\\-]+)?";
 
     @Override
-    public String replace(CrawledLink crawledLink, String address) {
+    public String replace(Address crawledLink) {
 
         String link = crawledLink.getCrawledLink();
 
@@ -23,7 +23,7 @@ public class RelativeAddressWithoutExtension implements Replacement {
             link = link.substring(0, link.length() - 1);
         }
 
-        return crawledLink.getHead() + evaluateDepth(address) + link + ".html" + crawledLink.getTail();
+        return crawledLink.getHead() + evaluateDepth(crawledLink.getParentPageAddress()) + link + ".html" + crawledLink.getTail();
     }
 
     @Override

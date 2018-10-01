@@ -4,8 +4,7 @@ import com.web.crawler.link.replacer.replacement.Replacement;
 import com.web.crawler.link.replacer.replacement.absolute.address.AbsoluteAddress;
 import com.web.crawler.link.replacer.replacement.relative.address.RelativeAddressWithoutExtension;
 import com.web.crawler.link.replacer.replacement.relative.address.RelativeAddressWithExtension;
-import com.web.crawler.model.CrawledLink;
-import com.web.crawler.model.Page;
+import com.web.crawler.model.Address;
 //TODO TEST it ?
 import java.util.ArrayList;
 
@@ -21,13 +20,13 @@ public class LinkReplacerService implements LinkReplacer {
     }
 
     @Override
-    public String makeLocal(Page page, CrawledLink crawledLink) {
+    public String makeLocal(Address address) {
 
-        Replacement replacement = getOperation(crawledLink.getCrawledLink());
+        Replacement replacement = getOperation(address.getCrawledLink());
         if (replacement != null) {
-            return replacement.replace(crawledLink, page.getAddress());
+            return replacement.replace(address);
         }
-        return crawledLink.getCrawledFullLink();
+        return address.getCrawledEntity();
     }
 
     private Replacement getOperation(String link) {

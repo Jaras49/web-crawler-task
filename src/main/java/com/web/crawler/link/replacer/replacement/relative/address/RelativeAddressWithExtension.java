@@ -1,7 +1,7 @@
 package com.web.crawler.link.replacer.replacement.relative.address;
 
 import com.web.crawler.link.replacer.replacement.Replacement;
-import com.web.crawler.model.CrawledLink;
+import com.web.crawler.model.Address;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,14 +11,14 @@ public class RelativeAddressWithExtension implements Replacement {
     private static final String RELATIVE_WITH_EXTENSION_REGEX = "/?[\\w/\\.]*/(\\w+\\.\\w+)";
 
     @Override
-    public String replace(CrawledLink crawledLink, String address) {
+    public String replace(Address crawledLink) {
 
         String link = crawledLink.getCrawledLink();
 
         if (link.startsWith("/")) {
             link = link.substring(1, link.length());
         }
-        return crawledLink.getHead() + evaluateDepth(address) + link + crawledLink.getTail();
+        return crawledLink.getHead() + evaluateDepth(crawledLink.getParentPageAddress()) + link + crawledLink.getTail();
     }
 
     @Override

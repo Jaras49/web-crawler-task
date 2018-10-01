@@ -1,6 +1,6 @@
 package com.web.crawler.link.replacer.replacement.relative.address;
 
-import com.web.crawler.model.CrawledLink;
+import com.web.crawler.model.Address;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
@@ -19,12 +19,12 @@ public class RelativeAddressWithExtensionTestSuite {
     @RunWith(Parameterized.class)
     public static class ReplaceMethodTest {
 
-        private CrawledLink crawledLink;
+        private Address address;
         private String expected;
         private RelativeAddressWithExtension relativeAddressWithExtension;
 
-        public ReplaceMethodTest(CrawledLink crawledLink, String expected) {
-            this.crawledLink = crawledLink;
+        public ReplaceMethodTest(Address address, String expected) {
+            this.address = address;
             this.expected = expected;
             relativeAddressWithExtension = new RelativeAddressWithExtension();
         }
@@ -32,14 +32,14 @@ public class RelativeAddressWithExtensionTestSuite {
         @Parameters
         public static Collection<Object[]> data() {
             return Arrays.asList(new Object[][]{
-                    {new CrawledLink("", "src=\"", "/_css/2015.1/screen.css"),
+                    {new Address("", "src=\"", "/_css/2015.1/screen.css"),
                             "src=\"_css/2015.1/screen.css\""},
             });
         }
 
         @Test
         public void shouldBuildLocalLink() {
-            assertEquals(expected, relativeAddressWithExtension.replace(crawledLink, "https://www.testCase.org/"));
+            assertEquals(expected, relativeAddressWithExtension.replace(address, "https://www.testCase.org/"));
         }
     }
 

@@ -14,8 +14,8 @@ public class UrlNormalizer implements Normalizer {
         m.find();
 
         if (m.group(4).endsWith("/")) {
-            return "https://www." + m.group(4).substring(0, m.group(4).length() - 1);
+            return "https://" + m.group(4).substring(0, m.group(4).length() - 1);
         }
-        return "https://www." + m.group(4);
+        return "https://" + m.group(4);
     }
 }

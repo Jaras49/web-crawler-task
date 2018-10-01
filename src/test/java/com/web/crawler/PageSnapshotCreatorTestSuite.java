@@ -2,6 +2,7 @@ package com.web.crawler;
 
 import com.web.crawler.crawling.WebCrawler;
 import com.web.crawler.extract.PageExtractor;
+import com.web.crawler.model.Address;
 import com.web.crawler.model.Page;
 import com.web.crawler.model.PageSnapshot;
 import org.junit.Before;
@@ -29,16 +30,16 @@ public class PageSnapshotCreatorTestSuite {
 
     @Test
     public void shouldCreatePageSnapShot() {
-
+//TODO FIX this
         //Given
         List<Page> links = new ArrayList<>();
-        links.add(new Page("xyz.com", "xyzBody"));
+        links.add(new Page(new Address("dummy"), "xyzBody"));
 
-        when(pageExtractor.extractPage("example.com")).thenReturn(new Page("example.com", "exampleBody"));
-        when(webCrawler.crawl(new Page("example.com", "exampleBody"))).thenReturn(links);
+        when(pageExtractor.extractPage("example.com")).thenReturn(new Page(new Address("dummy"), "exampleBody"));
+        when(webCrawler.crawl(new Page(new Address("dummy"), "exampleBody"))).thenReturn(links);
 
         Set<PageSnapshot> pages = new HashSet<>();
-        pages.add(new PageSnapshot(new Page("xyz.com", "xyzBody"), new HashSet<>()));
+        pages.add(new PageSnapshot(new Page(new Address("dummy"), "xyzBody"), new HashSet<>()));
 
         //When
         PageSnapshot node = pageSnapshotCreator.createPageNode("example.com", 2);

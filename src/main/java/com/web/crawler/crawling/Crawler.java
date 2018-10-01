@@ -4,7 +4,7 @@ import com.web.crawler.crawling.builder.FullLinkBuilder;
 import com.web.crawler.crawling.strategy.RegexCrawler;
 import com.web.crawler.crawling.strategy.RegexLinkCrawler;
 import com.web.crawler.extract.PageExtractor;
-import com.web.crawler.model.CrawledLink;
+import com.web.crawler.model.Address;
 import com.web.crawler.model.Page;
 
 import java.util.ArrayList;
@@ -29,15 +29,15 @@ public class Crawler implements WebCrawler {
     @Override
     public Collection<Page> crawl(Page page) {
 
-        List<CrawledLink> crawledLinks = chooseCrawlerStrategy(page).find(page);
+        List<Address> addresses = chooseCrawlerStrategy(page).find(page);
 //TODO ZAPYTAC O ZAPIS
-        return crawledLinks.stream()
-                .map(crawledLink -> pageExtractor.extractPage(buildFullLinks(page, crawledLink), crawledLink))
+        return addresses.stream()
+                .map(crawledLink -> pageExtractor.extractPage(buildFullLinks(crawledLink), crawledLink))
                 .collect(Collectors.toList());
     }
 
-    private String buildFullLinks(Page page, CrawledLink crawledLink) {
-        return fullLinkBuilder.checkLinks(page.getAddress(), crawledLink.getCrawledLink());
+    private String buildFullLinks(Address address) {
+        return fullLinkBuilder.checkLinks(address.getParentPageAddress(), address.getCrawledLink());
     }
 
     private RegexCrawler chooseCrawlerStrategy(Page page) {

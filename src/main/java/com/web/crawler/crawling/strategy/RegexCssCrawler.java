@@ -1,6 +1,6 @@
 package com.web.crawler.crawling.strategy;
 
-import com.web.crawler.model.CrawledLink;
+import com.web.crawler.model.Address;
 import com.web.crawler.model.Page;
 
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 public class RegexCssCrawler implements RegexCrawler {
 
     @Override
-    public List<CrawledLink> find(Page page) {
+    public List<Address> find(Page page) {
         return null;
     }
 

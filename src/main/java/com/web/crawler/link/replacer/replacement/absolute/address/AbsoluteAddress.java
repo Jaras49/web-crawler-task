@@ -2,7 +2,7 @@ package com.web.crawler.link.replacer.replacement.absolute.address;
 
 import com.web.crawler.download.namegenerator.NameGenerator;
 import com.web.crawler.link.replacer.replacement.Replacement;
-import com.web.crawler.model.CrawledLink;
+import com.web.crawler.model.Address;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,7 +12,7 @@ public class AbsoluteAddress implements Replacement {
     private static final String ABSOLUTE_REGEX = "(http(s)?://)?(www\\.)?([-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*))";
 
     @Override
-    public String replace(CrawledLink crawledLink, String address) {
+    public String replace(Address crawledLink) {
 
         String link = crawledLink.getCrawledLink();
 //TODO zapytać o takie rozwiązanie
@@ -21,7 +21,7 @@ public class AbsoluteAddress implements Replacement {
         link = m.group(0);
         link = link.replaceAll("www\\.", "");
 
-        return crawledLink.getHead() + evaluateDepth(address) + link + crawledLink.getTail();
+        return crawledLink.getHead() + evaluateDepth(crawledLink.getParentPageAddress()) + link + crawledLink.getTail();
     }
 
     @Override

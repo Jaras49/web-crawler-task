@@ -1,7 +1,7 @@
 package com.web.crawler.crawling;
 
 import com.web.crawler.crawling.strategy.RegexLinkCrawler;
-import com.web.crawler.model.CrawledLink;
+import com.web.crawler.model.Address;
 import com.web.crawler.model.Page;
 import org.junit.Assert;
 import org.junit.Test;
@@ -69,10 +69,10 @@ public class RegexLinkCrawlerTest {
                 "</html>\n";
 
         //When
-        List<CrawledLink> result = regexLinkCrawler.find(new Page(url, websiteSource));
+        List<Address> result = regexLinkCrawler.find(new Page(url, websiteSource));
 
         //Then
-        Assert.assertEquals(Collections.singletonList(new CrawledLink(
+        Assert.assertEquals(Collections.singletonList(new Address(
                         "href=\"http://www.iana.org/domains/example\"", "href=\"", "http://www.iana.org/domains/example")),
                 result);
 

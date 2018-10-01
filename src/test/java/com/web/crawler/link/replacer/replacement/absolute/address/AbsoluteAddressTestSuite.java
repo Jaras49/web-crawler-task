@@ -1,6 +1,6 @@
 package com.web.crawler.link.replacer.replacement.absolute.address;
 
-import com.web.crawler.model.CrawledLink;
+import com.web.crawler.model.Address;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
@@ -27,19 +27,19 @@ public class AbsoluteAddressTestSuite {
         @Parameters
         public static Collection data() {
             return Arrays.asList(new Object[][]{
-                    {new CrawledLink("", "href=\"", "http://www.icann.org"), "href=\"../icann.org\""},
-                    {new CrawledLink("", "href=\"", "http://pti.icann.org"), "href=\"../pti.icann.org\""}
+                    {new Address("", "href=\"", "http://www.icann.org"), "href=\"../icann.org\""},
+                    {new Address("", "href=\"", "http://pti.icann.org"), "href=\"../pti.icann.org\""}
             });
         }
 
         @Parameter
-        public CrawledLink crawledLink;
+        public Address address;
         @Parameter(1)
         public String expectedResult;
 
         @Test
         public void shouldBuildLocalLinks() {
-            assertEquals(expectedResult, absoluteAddress.replace(crawledLink, TEST_ADDRESS_1));
+            assertEquals(expectedResult, absoluteAddress.replace(address, TEST_ADDRESS_1));
         }
 
     }

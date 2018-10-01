@@ -3,7 +3,7 @@ package com.web.crawler.crawling;
 import com.web.crawler.crawling.builder.FullLinkBuilder;
 import com.web.crawler.crawling.strategy.RegexLinkCrawler;
 import com.web.crawler.extract.PageExtractor;
-import com.web.crawler.model.CrawledLink;
+import com.web.crawler.model.Address;
 import com.web.crawler.model.Page;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,12 +38,12 @@ public class CrawlerTest {
 
         //Given
         Page page = new Page("test address", "testBody");
-        CrawledLink crawledLink = new CrawledLink("href=\"www.example.com\"", "href=\"", "www.example.com");
-        Page expectedPage = new Page("expected address", crawledLink, "expectedBody");
+        Address address = new Address("href=\"www.example.com\"", "href=\"", "www.example.com");
+        Page expectedPage = new Page("expected address", address, "expectedBody");
 
-        when(regexLinkCrawler.find(page)).thenReturn(Collections.singletonList(crawledLink));
-        when(fullLinkBuilder.checkLinks(page.getAddress(), crawledLink.getCrawledLink())).thenReturn("www.example.com");
-        when(pageExtractor.extractPage("www.example.com", crawledLink)).thenReturn(expectedPage);
+        when(regexLinkCrawler.find(page)).thenReturn(Collections.singletonList(address));
+        when(fullLinkBuilder.checkLinks(page.getAddress(), address.getCrawledLink())).thenReturn("www.example.com");
+        when(pageExtractor.extractPage("www.example.com", address)).thenReturn(expectedPage);
 
         Collection<Page> expected = new ArrayList<>();
         expected.add(expectedPage);
