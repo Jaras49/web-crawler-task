@@ -1,6 +1,6 @@
 import com.web.crawler.PageSnapshotCreator;
 import com.web.crawler.crawling.Crawler;
-import com.web.crawler.crawling.RegexLinkCrawler;
+import com.web.crawler.crawling.strategy.RegexLinkCrawler;
 import com.web.crawler.crawling.builder.FullLinkBuilder;
 import com.web.crawler.download.Downloader;
 import com.web.crawler.download.PageDownloader;

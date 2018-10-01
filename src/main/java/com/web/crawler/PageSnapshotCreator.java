@@ -1,6 +1,6 @@
 package com.web.crawler;
 
-import com.web.crawler.crawling.RegexLinkCrawler;
+import com.web.crawler.crawling.strategy.RegexLinkCrawler;
 import com.web.crawler.crawling.WebCrawler;
 import com.web.crawler.model.CrawledLink;
 import com.web.crawler.link.replacer.LinkReplacer;

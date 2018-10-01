@@ -1,5 +1,6 @@
 package com.web.crawler.crawling;
 
+import com.web.crawler.crawling.strategy.RegexLinkCrawler;
 import com.web.crawler.model.CrawledLink;
 import com.web.crawler.model.Page;
 import org.junit.Assert;
