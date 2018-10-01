@@ -20,7 +20,6 @@ public class HttpPageExtractorTest {
 
         //Given
         String link = "http://example.com/";
-
         URL resource = this.getClass().getClassLoader().getResource("html/index.html");
 
         String body = Files.readAllLines(Paths.get(resource.toURI())).stream()
